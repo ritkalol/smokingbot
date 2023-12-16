@@ -40,7 +40,7 @@ def video_message(message):
     bot.send_message(
         message.chat.id, "Предоставляем вам видео")
     bot.send_message(
-        message.chat.id, mass_videos[random.randint(0,len(A)-1)])
+        message.chat.id, mass_videos[random.randint(0,len(mass_videos)-1)])
     
 
 
