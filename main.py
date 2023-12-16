@@ -1,5 +1,6 @@
 import telebot
 import stuff
+import random
 import sqlite3 as sql
 from telebot import types
 from datetime import datetime
@@ -96,8 +97,17 @@ def start_challenge_message(message):
 
 @bot.message_handler(commands=['video'])
 def video_message(message):
+    video_0 = 'https://www.youtube.com/watch?v=PBR-Yev5vO8&t=58s'
+    video_1 = 'https://www.youtube.com/watch?v=MG52aw2hoWI'
+    video_2 = 'https://www.youtube.com/watch?v=Y5KvDrWX3ls'
+    video_3 = 'https://www.youtube.com/watch?v=lOx4HgqchUw'
+    video_4 = 'https://www.youtube.com/watch?v=Qt_0JwpuSkU'
+    mass_videos = [video_0,video_1,video_2,video_3,video_4]
     bot.send_message(
         message.chat.id, "Предоставляем вам видео")
+    bot.send_message(
+        message.chat.id, mass_videos[random.randint(0,len(mass_videos)-1)])
+    
 
 
 @bot.message_handler(commands=['books'])
