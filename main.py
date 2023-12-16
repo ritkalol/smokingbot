@@ -1,6 +1,7 @@
 import telebot
 import stuff
 import sqlite3 as sql
+from telebot import types
 
 print("[INFO] Bot started")
 
@@ -53,9 +54,21 @@ def start_reset_timer(message):
 
 @bot.message_handler(commands=['motivation'])
 def start_motivation(message):
-    bot.send_message(
-        message.chat.id, "Мотивацию надо пооднять!!!")
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        btn1 = types.KeyboardButton("Здоровье")
+        btn2 = types.KeyboardButton("Беременность")
+        btn3 = types.KeyboardButton("Вред для близких")
+        markup.add(btn1, btn2, btn3)
+        bot.send_message(message.chat.id, text="Выберите тему мотивации, которая вам ближе всего".format(message.from_user), reply_markup=markup)
 
+@bot.message_handler(content_types=['text'])
+def func(message):
+    if(message.text == "Здоровье"):
+        bot.send_message("Преходящее повышение артериального давления.Одышка.")
+    elif(message.text == "Беременность"):
+        bot.send_message("Ойойой")
+    else:
+        bot.send_message("Good boy")
 
 @bot.message_handler(commands=['days'])
 def start_days(message):
