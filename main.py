@@ -2,7 +2,12 @@ import telebot
 import stuff
 import random
 import sqlite3 as sql
+from my_utils import *
 from telebot import types
+from datetime import datetime
+import schedule
+import threading
+import time
 
 print("[INFO] Bot started")
 
@@ -48,14 +53,12 @@ def video_message(message):
     video_7 = 'https://www.youtube.com/watch?v=eqlOXjOUcGI'
     video_8 = 'https://www.youtube.com/watch?v=3CPrJmZahJE'
     video_9 = 'https://www.youtube.com/watch?v=YfZ6BanNDek'
-    mass_videos = [video_0,video_1,video_2,video_3,video_4,video_5,video_6,video_7,video_8,video_9]
+    mass_videos = [video_0, video_1, video_2, video_3,
+                   video_4, video_5, video_6, video_7, video_8, video_9]
     bot.send_message(
         message.chat.id, "Предоставляем вам видео")
     bot.send_message(
-        message.chat.id, mass_videos[random.randint(0,len(mass_videos)-1)])
-    
-
-
+        message.chat.id, mass_videos[random.randint(0, len(mass_videos)-1)])
 
 
 @bot.message_handler(commands=['want_smoke'])
