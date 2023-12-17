@@ -1,12 +1,8 @@
 import telebot
 import stuff
-from my_utils import *
 import random
+import sqlite3 as sql
 from telebot import types
-from datetime import datetime
-import threading
-import schedule
-import time
 
 print("[INFO] Bot started")
 
@@ -25,8 +21,12 @@ def start_message(message):
 @bot.message_handler(commands=['start_challenge'])
 def start_challenge_message(message):
     bot.send_message(
-        message.chat.id, "Мы начали челлендж, ждите следующего оповещения! Пока что можете посмотреть видео о вреде курения")
-    set_date(message.chat.id, datetime.now().strftime("%d/%m/%Y"))
+        message.chat.id, "Мы начали челлендж!")
+    con = sql.connect('test.db')
+    with con:
+        cur = con.cursor()
+        cur.execute("CREATE TABLE IF NOT EXISTS 'test' (id INTEGER)")
+        con.commit()
 
 
 @bot.message_handler(commands=['stop_challenge'])
@@ -43,17 +43,19 @@ def video_message(message):
     video_2 = 'https://www.youtube.com/watch?v=Y5KvDrWX3ls'
     video_3 = 'https://www.youtube.com/watch?v=lOx4HgqchUw'
     video_4 = 'https://www.youtube.com/watch?v=Qt_0JwpuSkU'
-    mass_videos = [video_0, video_1, video_2, video_3, video_4]
+    video_5 = 'https://www.youtube.com/watch?v=2xDGW8_xCB80'
+    video_6 = 'https://youtu.be/VooEzH8ShJg?si=6vIFYPhqcJdzQ63R'
+    video_7 = 'https://www.youtube.com/watch?v=eqlOXjOUcGI'
+    video_8 = 'https://www.youtube.com/watch?v=3CPrJmZahJE'
+    video_9 = 'https://www.youtube.com/watch?v=YfZ6BanNDek'
+    mass_videos = [video_0,video_1,video_2,video_3,video_4,video_5,video_6,video_7,video_8,video_9]
     bot.send_message(
         message.chat.id, "Предоставляем вам видео")
     bot.send_message(
-        message.chat.id, mass_videos[random.randint(0, len(mass_videos)-1)])
+        message.chat.id, mass_videos[random.randint(0,len(mass_videos)-1)])
+    
 
 
-@bot.message_handler(commands=['books'])
-def sbooks_message(message):
-    bot.send_message(
-        message.chat.id, "Предоставляем вам книги")
 
 
 @bot.message_handler(commands=['want_smoke'])
@@ -160,5 +162,3 @@ run_schedule = True
 threading.Thread(target=schedule_func).start()
 
 bot.infinity_polling()
-print("[INFO] Bot closed")
-run_schedule = False
