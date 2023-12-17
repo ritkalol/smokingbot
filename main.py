@@ -40,6 +40,19 @@ def start_reset_timer(message):
         message.chat.id, "Мы закончили челлендж :/")
     delete_user(message.chat.id)
 
+@bot.message_handler(commands=['books'])
+def start_books(message):
+    bot.send_message(
+            message.chat.id, "Предлагаем почитать Вам следующую книгу:")
+    book_0 = 'Р. Дальке, М. Дальке. Психология курения'
+    book_1 = 'У.М. Эрасалиев. О вреде курения'
+    book_2 = 'В. Уланов. Вред курения'
+    book_3 = 'Лев Кругляк. Свобода от зависимости. Что семья должна знать о наркотиках, азартных играх и виртуальной реальности'
+    book_4 = 'Аллен Карр. Как помочь нашим детям бросить курить'
+    book_5 = 'Келли Макгонигал. Сила воли. Как развить и укрепить'
+    mass_books = [book_0, book_1, book_2, book_3, book_4, book_5]
+    bot.send_message(
+            message.chat.id, mass_books[random.randint(0,len(mass_books)-1)])
 
 @bot.message_handler(commands=['video'])
 def video_message(message):
