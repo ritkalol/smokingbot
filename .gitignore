@@ -1,3 +1,5 @@
 env
 tokfile
+*.db
 __pycache__
+stickers
